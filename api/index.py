@@ -207,6 +207,48 @@ async def get_clinical_trials():
     except Exception as e:
         logger.error(f"Error fetching ClinicalTrials.gov trials: {e}")
         raise HTTPException(status_code=500, detail="Error fetching ClinicalTrials.gov trials.")
+    
+@app.get("/api/trialsbysponsor")
+async def get_trials_by_sponsor():
+    db = Prisma()
+    await db.connect()
+    
+    try:
+        trials = await db.query_raw('''
+            SELECT sponsor, COUNT(*) as count
+            FROM (
+                SELECT unnest(string_to_array(sponsor_collaborators, '|')) AS sponsor
+                FROM clinicaltrials
+            ) AS sponsors
+            GROUP BY sponsor
+        ''')
+        return {"trials_by_sponsor": trials}
+    except Exception as e:
+        logger.error(f"Error fetching trials by sponsor: {e}")
+        raise HTTPException(status_code=500, detail="Error fetching trials by sponsor.")
+    finally:
+        await db.disconnect()
+
+@app.get("/api/trialsbycondition")
+async def get_trials_by_condition():
+    db = Prisma()
+    await db.connect()
+    
+    try:
+        trials = await db.query_raw('''
+            SELECT condition, COUNT(*) as count
+            FROM (
+                SELECT unnest(string_to_array(conditions, '|')) AS condition
+                FROM clinicaltrials
+            ) AS conditions
+            GROUP BY condition
+        ''')
+        return {"trials_by_condition": trials}
+    except Exception as e:
+        logger.error(f"Error fetching trials by condition: {e}")
+        raise HTTPException(status_code=500, detail="Error fetching trials by condition.")
+    finally:
+        await db.disconnect()
 
 
 if __name__ == "__main__":

@@ -7,7 +7,7 @@
     "next-dev": "next dev",
     "dev": "concurrently \"npm run next-dev\" \"npm run fastapi-dev\"",
     "build": "next build",
-    "vercel-build": "prisma generate && prisma migrate deploy && next build",
+    "vercel-build": "pip3 install -r requirements.txt && prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "lint": "next lint"
   },

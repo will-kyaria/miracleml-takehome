@@ -12,7 +12,7 @@ interface BarChartProps<T> {
 
 const BarChartComponent = <T extends object>({ data, dataKeyX, dataKeyY, title }: BarChartProps<T>) => {
     return (
-        <div className='bg-white shadow-md rounded-lg flex flex-col p-4'>
+        <div className='bg-white shadow-md rounded-lg flex flex-col p-4 h-96'>
             <h1 className="text-xl font-semibold mb-4 text-center">{title}</h1>
             <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={data}>

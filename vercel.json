@@ -1,0 +1,13 @@
+{
+    "crons": [
+      {
+        "path": "/api/scrape-eudract",
+        "schedule": "0 */12 * * *"
+      },
+      {
+        "path": "/api/download-clinical-trials-gov",
+        "schedule": "0 */12 * * *"
+      }
+    ]
+  }
+  

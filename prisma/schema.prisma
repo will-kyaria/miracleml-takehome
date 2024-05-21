@@ -1,0 +1,53 @@
+generator client {
+  provider             = "prisma-client-py"
+  interface            = "asyncio"
+  recursive_type_depth = 5
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model clinicaltrials {
+  id                      Int       @id @default(autoincrement())
+  rank                    Int?
+  nct_number              String    @db.VarChar(50)
+  title                   String?
+  acronym                 String?   @db.VarChar(100)
+  status                  String?   @db.VarChar(50)
+  study_results           String?
+  conditions              String?
+  interventions           String?
+  outcome_measures        String?
+  sponsor_collaborators   String?
+  gender                  String?   @db.VarChar(20)
+  age                     String?   @db.VarChar(50)
+  phases                  String?   @db.VarChar(50)
+  enrollment              Int?
+  funded_bys              String?
+  study_type              String?   @db.VarChar(50)
+  study_designs           String?
+  other_ids               String?   @db.VarChar(100)
+  start_date              DateTime?
+  primary_completion_date DateTime?
+  completion_date         DateTime?
+  first_posted            DateTime?
+  results_first_posted    DateTime?
+  last_update_posted      DateTime?
+  locations               String?
+  study_documents         String?
+  url                     String?
+}
+
+model eudract {
+  id                Int       @id @default(autoincrement())
+  eudract_number    String    @db.VarChar(255)
+  sponsor_protocol  String?   @db.VarChar(255)
+  start_date        DateTime?
+  sponsor_name      String?   @db.VarChar(255)
+  full_title        String?   @db.Text
+  medical_condition String?   @db.Text
+  population_age    String?   @db.VarChar(255)
+  gender            String?   @db.VarChar(50)
+}

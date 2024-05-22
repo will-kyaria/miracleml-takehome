@@ -235,6 +235,7 @@ async def get_trials_by_condition():
     await db.connect()
     
     try:
+        print("Connected to the database.")
         trials = await db.query_raw('''
             SELECT condition, COUNT(*) as count
             FROM (
@@ -243,12 +244,14 @@ async def get_trials_by_condition():
             ) AS conditions
             GROUP BY condition
         ''')
+        print("Fetched trials by condition.")
         return {"trials_by_condition": trials}
     except Exception as e:
-        logger.error(f"Error fetching trials by condition: {e}")
+        print(f"Error fetching trials by condition: {e}")
         raise HTTPException(status_code=500, detail="Error fetching trials by condition.")
     finally:
         await db.disconnect()
+        print("Disconnected from the database.")
 
 
 if __name__ == "__main__":

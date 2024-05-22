@@ -36,7 +36,7 @@ next-env.d.ts
 
 # python env
 /.venv
-api/__pycache__/index.cpython-38.pyc
+api/__pycache__
 package-lock.json
 .env
 prisma/migrations*
